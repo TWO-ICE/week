@@ -11,7 +11,7 @@ export const SITE = {
   "blogPage": "https://thinkerchan.com",
   "twitterId": "thinkerchan",
   "githubId": "thinkerchan",
-  "repo": "thinkerchan/weekly",
+  "repo": "TWO-ICE/week",
   "cmtURL":"https://cmt.testdog.cn",
   "cmtJs":"https://unpkg.com/@waline/client@2.15.8/dist/waline.js",
   "cmtCss":"https://unpkg.com/@waline/client@2.15.8/dist/waline.css",
