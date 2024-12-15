@@ -12,7 +12,7 @@ export const SITE = {
   "twitterId": "TWO-ICE",
   "githubId": "TWO-ICE",
   "repo": "TWO-ICE/week",
-  "cmtURL":"https://cmt.testdog.cn",
+  "cmtURL":"https://waline.ebeb.fun",
   "cmtJs":"https://unpkg.com/@waline/client@2.15.8/dist/waline.js",
   "cmtCss":"https://unpkg.com/@waline/client@2.15.8/dist/waline.css",
   "pv":true
