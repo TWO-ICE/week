@@ -1,7 +1,7 @@
 export const SITE = {
   "title": "丛集周刊",
   "author": "二冰",
-  "description": "丛集周刊",
+  "description": "丛集周刊feedId:91291749048484864+userId:63402517443994624",
   "cardDesc":"🤖 为你播报一周新鲜事",
   "keywords": "测试狗,testdog,testdog.cn",
   "icon": "https://img.twoice.fun:666/i/2024/12/15/丛集-2.jpg",
