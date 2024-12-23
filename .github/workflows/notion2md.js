@@ -87,7 +87,6 @@ async function main() {
     let mdContent = '' // Markdown 内容
     let secData = {} // 存储分类数据
     let mdImg = '' // 存储图片内容
-    let mdlink = '' // 存储拼成的链接
 
     // 设置 Markdown 图片格式的函数
     function setMdImg(img, txt) {
@@ -127,8 +126,8 @@ async function main() {
           secData[tag].index = 0; // 初始化索引
         }
         let idx = secData[tag].index++; // 获取当前索引并自增
-        // 生成一条消息
-        const oneMsg = `**${idx + 1}、${title.trim()}**\n\n${targetStr}\n\n${img ? `![图片](${img})\n\n` : ''}`;
+        // 生成一条消息，确保每条消息都包含链接
+        const oneMsg = `**${idx + 1}、${title.trim()}**\n\n${targetStr}\n\n[链接](${mdlink})\n\n${img ? `![图片](${img})\n\n` : ''}`;
         secData[tag].push(oneMsg); // 将消息添加到对应标签的数组中
       }
 
@@ -162,7 +161,7 @@ async function main() {
     }
 
     // 生成文件内容
-    const fileContent = `${mdHead + mdImg + mdContent}\n\n[链接](${mdlink})`; // 将 mdlink 添加到文件内容中
+    const fileContent = `${mdHead + mdImg + mdContent}`; // 生成文件内容
     // 将内容写入文件
     fs.writeFileSync(filePath, fileContent);
   } catch (error) {
