@@ -107,7 +107,7 @@ async function main() {
       const content = props.Description?.rich_text.map(item => item.plain_text).join('') || '' // 获取内容
       const img = props.img?.files[0]?.file?.url || props.img?.files[0]?.external?.url || '' // 获取图片 URL
       const imgDesc = props.imgDesc?.rich_text[0]?.plain_text || '' // 获取图片描述
-      const slug = props.Slug?.Slug[0].plain_text // 获取标题
+      const slug = props.Slug?.rich_text.map(item => item.plain_text).join('') || '' // 获取内容
       // 假设 slug 是从 Notion 数据中获取的字段
       // 基础 URL
       const baseUrl = 'https://inbox.ebeb.fun/'
