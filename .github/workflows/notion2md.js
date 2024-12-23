@@ -109,7 +109,7 @@ async function main() {
 
       const _content = content // 处理后的内容
       const targetStr = formatStr(_content) // 格式化内容
-      const tag = (props.tags.multi_select && props.tags.multi_select[0]?.name) || props.tags.select?.name // 获取标签，支持多选和单选
+      const tag = (props.Tags.multi_select && props.Tags.multi_select[0]?.name) || props.Tags.select?.name // 获取标签，支持多选和单选
       const oneImg = cover ? `![](${cover})` : '' // 如果有封面，生成 Markdown 图片格式
 
       // 如果有标签
