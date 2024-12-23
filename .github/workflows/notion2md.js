@@ -87,6 +87,7 @@ async function main() {
     let mdContent = '' // Markdown 内容
     let secData = {} // 存储分类数据
     let mdImg = '' // 存储图片内容
+    let mdlink = '' // 存储拼成的链接
 
     // 设置 Markdown 图片格式的函数
     function setMdImg(img, txt) {
@@ -106,6 +107,12 @@ async function main() {
       const content = props.Description?.rich_text.map(item => item.plain_text).join('') || '' // 获取内容
       const img = props.img?.files[0]?.file?.url || props.img?.files[0]?.external?.url || '' // 获取图片 URL
       const imgDesc = props.imgDesc?.rich_text[0]?.plain_text || '' // 获取图片描述
+      const slug = props.Slug?.Slug[0].plain_text // 获取标题
+      // 假设 slug 是从 Notion 数据中获取的字段
+      // 基础 URL
+      const baseUrl = 'https://inbox.ebeb.fun/'
+      // 拼接完整链接
+      const mdlink = `${baseUrl}${slug}`
 
       const _content = content // 处理后的内容
       const targetStr = formatStr(_content) // 格式化内容
@@ -155,7 +162,7 @@ async function main() {
     }
 
     // 生成文件内容
-    const fileContent = `${mdHead + mdImg + mdContent}`;
+    const fileContent = `${mdHead + mdImg + mdContent + mdlink}`;
     // 将内容写入文件
     fs.writeFileSync(filePath, fileContent);
   } catch (error) {
