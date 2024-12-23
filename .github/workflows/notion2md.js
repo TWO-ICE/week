@@ -103,38 +103,38 @@ async function main() {
       const props = page.properties // 获取页面属性
       const title = props.title?.title[0].plain_text // 获取标题
 
-      // const content = props.desc?.rich_text[0]?.plain_text || ''
-      const content = props.Description?.rich_text.map(item => item.plain_text).join('') || '' // 获取内容
-      const img = props.img?.files[0]?.file?.url || props.img?.files[0]?.external?.url || '' // 获取图片 URL
-      const imgDesc = props.imgDesc?.rich_text[0]?.plain_text || '' // 获取图片描述
-      const slug = props.Slug?.rich_text.map(item => item.plain_text).join('') || '' // 获取内容
-      // 假设 slug 是从 Notion 数据中获取的字段
-      // 基础 URL
-      const baseUrl = 'https://inbox.ebeb.fun/'
-      // 拼接完整链接
-      const mdlink = `${baseUrl}${slug}`
+      // 获取内容
+      const content = props.Description?.rich_text.map(item => item.plain_text).join('') || '';
+      const img = props.img?.files[0]?.file?.url || props.img?.files[0]?.external?.url || ''; // 获取图片 URL
+      const imgDesc = props.imgDesc?.rich_text[0]?.plain_text || ''; // 获取图片描述
+      const slug = props.Slug?.rich_text.map(item => item.plain_text).join('') || ''; // 获取 slug 字段
 
-      const _content = content // 处理后的内容
-      const targetStr = formatStr(_content) // 格式化内容
-      const tag = (props.Tags.multi_select && props.Tags.multi_select[0]?.name) || props.Tags.select?.name // 获取标签，支持多选和单选
-      const oneImg = cover ? `![](${cover})` : '' // 如果有封面，生成 Markdown 图片格式
+      // 基础 URL
+      const baseUrl = 'https://inbox.ebeb.fun/';
+      // 拼接完整链接
+      const mdlink = `${baseUrl}${slug}`;
+
+      const _content = content; // 处理后的内容
+      const targetStr = formatStr(_content); // 格式化内容
+      const tag = (props.Tags.multi_select && props.Tags.multi_select[0]?.name) || props.Tags.select?.name; // 获取标签，支持多选和单选
+      const oneImg = cover ? `![](${cover})` : ''; // 如果有封面，生成 Markdown 图片格式
 
       // 如果有标签
       if (tag) {
         // 如果该标签不存在于 secData 中，则初始化
         if (!secData[tag]) {
-          secData[tag] = []
-          secData[tag].index = 0 // 初始化索引
+          secData[tag] = [];
+          secData[tag].index = 0; // 初始化索引
         }
-        let idx = secData[tag].index++ // 获取当前索引并自增
+        let idx = secData[tag].index++; // 获取当前索引并自增
         // 生成一条消息
         const oneMsg = `**${idx + 1}、${title.trim()}**\n\n${targetStr}\n\n${img ? `![图片](${img})\n\n` : ''}`;
-        secData[tag].push(oneMsg) // 将消息添加到对应标签的数组中
+        secData[tag].push(oneMsg); // 将消息添加到对应标签的数组中
       }
 
       // 如果有图片，设置图片内容
       if (img) {
-        mdImg = setMdImg(img, imgDesc)
+        mdImg = setMdImg(img, imgDesc);
       }
 
       index += 1; // 索引自增
@@ -142,15 +142,15 @@ async function main() {
 
     // 将分类数据转换为 Markdown 内容
     Object.keys(secData).map(key => {
-      mdContent += `## ${key}\n${secData[key].join('')}`
-    })
+      mdContent += `## ${key}\n${secData[key].join('')}`;
+    });
 
     // 读取指定目录下的文件，过滤掉隐藏文件
-    const existingFiles = fs.readdirSync(CONFIG.dir).filter(file => !file.startsWith('.'))
+    const existingFiles = fs.readdirSync(CONFIG.dir).filter(file => !file.startsWith('.'));
     // 查找是否已有文件包含中间部分
     const existingFile = existingFiles.find(file => file.includes(mid));
 
-    let filePath = ''
+    let filePath = '';
     // 如果找到已有文件，使用该文件路径
     if (existingFile) {
       filePath = path.join(CONFIG.dir, existingFile);
@@ -162,7 +162,7 @@ async function main() {
     }
 
     // 生成文件内容
-    const fileContent = `${mdHead + mdImg + mdContent + mdlink}`;
+    const fileContent = `${mdHead + mdImg + mdContent}\n\n[链接](${mdlink})`; // 将 mdlink 添加到文件内容中
     // 将内容写入文件
     fs.writeFileSync(filePath, fileContent);
   } catch (error) {
@@ -173,4 +173,4 @@ async function main() {
 }
 
 // 调用主函数
-main()
+main();
