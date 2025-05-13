@@ -108,7 +108,7 @@ async function main() { // 主函数，使用async定义为异步函数
 
       // 添加项目地址和项目介绍
       const projectUrl = url ? `\n\n**项目地址**：${url}` : ''
-      const projectIntro = slug ? `\n\n**项目介绍**：https://inbox.ebeb.fun/${slug}` : ''
+      const projectIntro = slug ? `\n\n**项目介绍**：https://inbox.ebeb.fun/article/${slug}` : ''
 
       if (category) { // 如果有分类
         if (!secData[category]) { // 如果该分类的数据不存在
